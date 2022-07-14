@@ -1,0 +1,31 @@
+{
+  "name": "consumo-de-apis",
+  "private": true,
+  "description": "projeto para ensinar o consumo de apis usando javacript",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PedroLuisBrilhadori/consumo-de-apis.git"
+  },
+  "keywords": [
+    "javascript",
+    "apis",
+    "rpjs"
+  ],
+  "author": "PedroLuisBrilhadori",
+  "license": "ISC",
+  
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^3.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/PedroLuisBrilhadori/consumo-de-apis/issues"
+  },
+  "homepage": "https://github.com/PedroLuisBrilhadori/consumo-de-apis#readme"
+}
