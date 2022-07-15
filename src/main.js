@@ -1,23 +1,30 @@
 import "./style.css";
 import javascriptLogo from "./assets/javascript.svg";
-import { setupCounter } from "./counter.js";
+import RPjsLogo from "./assets/logo.svg";
 
-document.querySelector("#app").innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
+const header = `
+  <nav class="flex justify-between items-center w-full">
+    <a href="https://rpjs.com.br" target="_blank">
+      <img src="${RPjsLogo}" class="logo" alt="RP.js logo" />
     </a>
+
+    <h1>Consumo de APIs</h1>
+    
     <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
       <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
     </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
+  </nav>
+`;
+
+const content = `
+  <div>
+
   </div>
 `;
 
-setupCounter(document.querySelector("#counter"));
+document.querySelector("#app").innerHTML = `
+  <div class="flex flex-col items-center justify-center">
+    ${header} 
+    ${content}
+  </div>
+`;
