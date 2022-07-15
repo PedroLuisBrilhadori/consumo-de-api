@@ -1,13 +1,12 @@
 <template>
   <a
     id="cat-card"
-    href=""
+    :href="cardState.url"
     target="_blank"
     class="block overflow-hidden rounded-2xl m-6"
   >
     <img
       :src="cardState.url"
-      loading="lazy"
       alt="imagem do gatinho :3"
       class="object-cover w-full max-h-80"
     />
@@ -23,7 +22,7 @@
 </template>
 
 <script>
-import { getCat } from "../http";
+import { getCat } from "./cat.service";
 
 export default {
   data() {
