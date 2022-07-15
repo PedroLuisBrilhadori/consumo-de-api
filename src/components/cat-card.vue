@@ -1,46 +1,3 @@
-<script>
-import { getCat } from "../cats";
-
-export default {
-  data() {
-    return {
-      cardState: {
-        id: "",
-        url: "",
-      },
-    };
-  },
-
-  methods: {
-    async setCard() {
-      const response = await getCat();
-
-      console.log(response);
-
-      if (!response.success) {
-        return;
-      }
-
-      const data = response.data;
-      this.setCardState(data.id, data.url);
-    },
-
-    setCardState(id, url) {
-      this.cardState.id = id;
-      this.cardState.url = url;
-    },
-
-    getCardState() {
-      return this.cardState;
-    },
-  },
-
-  mounted() {
-    this.setCard();
-  },
-};
-</script>
-
 <template>
   <a
     id="cat-card"
@@ -64,3 +21,41 @@ export default {
     </div>
   </a>
 </template>
+
+<script>
+import { getCat } from "../cats";
+
+export default {
+  data() {
+    return {
+      cardState: { id: "", url: "" },
+    };
+  },
+
+  methods: {
+    async setCard() {
+      const response = await getCat();
+
+      if (!response.success) {
+        return;
+      }
+
+      const data = response.data;
+      this._setCardState(data.id, data.url);
+    },
+
+    _setCardState(id, url) {
+      this.cardState.id = id;
+      this.cardState.url = url;
+    },
+
+    getCardState() {
+      return this.cardState;
+    },
+  },
+
+  mounted() {
+    this.setCard();
+  },
+};
+</script>
