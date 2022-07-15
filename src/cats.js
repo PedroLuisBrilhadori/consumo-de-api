@@ -1,5 +1,4 @@
 const url = `https://api.thecatapi.com/v1/images/search`;
-import Cat404 from "./assets/404.jpg";
 
 /**
  * Função que realiza a requisição http para a API
@@ -43,10 +42,12 @@ export async function setCat(imageElement) {
     return;
   }
 
-  let cat = `<img id="cat-photo" loading="lazy" src="${Cat404}" class="object-cover w-full h-96" alt="imagem do gatinho :3">`;
+  const httpCatUrl = `https://http.cat/${response?.status}`;
+
+  let cat = `<img id="cat-photo" loading="lazy" src="${httpCatUrl}" class="object-cover w-full h-96" alt="imagem do gatinho :3">`;
 
   imageElement.innerHTML = cat;
   cardIdElement.innerText = "Não foi possivel achar seu gatinho :(";
-  cardUrlElement.innerText = "https://http.cat/404";
-  cardElement.href = "https://http.cat/404";
+  cardUrlElement.innerText = httpCatUrl;
+  cardElement.href = httpCatUrl;
 }
