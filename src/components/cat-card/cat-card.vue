@@ -11,10 +11,10 @@
       class="object-cover w-full max-h-80"
     />
 
-    <div class="p-4 bg-gray-900">
+    <div class="p-4 bg-gradient-to-r from-orange-500 to-pink-500">
       <h5 class="text-sm text-white">{{ cardState.id }}</h5>
 
-      <p class="mt-1 text-xs text-gray-500">
+      <p class="mt-1 text-xs text-white">
         {{ cardState.url }}
       </p>
     </div>

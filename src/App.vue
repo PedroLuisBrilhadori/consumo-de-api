@@ -1,6 +1,5 @@
 <template>
-  <Nav title="Consumo de APIs"></Nav>
-
+  <Nav></Nav>
   <RouterView></RouterView>
 </template>
 

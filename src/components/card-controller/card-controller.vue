@@ -3,9 +3,9 @@
 
   <a
     @click="changeCard()"
-    class="m-3 text-indigo-600 active:text-indigo-600 inline-block px-8 py-3 text-sm font-medium transition border border-current rounded hover:scale-110 hover:shadow-xl focus:outline-none focus:ring"
+    class="m-3 text-white hover:text-yellow-500 inline-block px-8 py-3 text-sm font-medium transition border border-current rounded hover:scale-110 hover:shadow-xl focus:outline-none focus:ring"
   >
-    <div v-if="loading">
+    <div v-if="loading" class="text-yellow-500">
       <Loading />
       Carregando...
     </div>
