@@ -27,12 +27,13 @@ export async function setCat(imageElement) {
   const cardElement = document.getElementById("cat-card");
   const cardUrlElement = document.getElementById("card-url");
   const cardIdElement = document.getElementById("card-id");
+  const style = "object-cover w-full max-h-80";
 
   const response = await getCat();
 
   if (response.success) {
     const data = response?.data;
-    let cat = `<img id="cat-photo" loading="lazy" src="${data.url}" class="object-cover w-full h-96" alt="imagem do gatinho :3">`;
+    let cat = `<img id="cat-photo" loading="lazy" src="${data.url}" class="${style}" alt="imagem do gatinho :3">`;
 
     imageElement.innerHTML = cat;
     cardIdElement.innerText = data.id;
@@ -44,7 +45,7 @@ export async function setCat(imageElement) {
 
   const httpCatUrl = `https://http.cat/${response?.status}`;
 
-  let cat = `<img id="cat-photo" loading="lazy" src="${httpCatUrl}" class="object-cover w-full h-96" alt="imagem do gatinho :3">`;
+  let cat = `<img id="cat-photo" loading="lazy" src="${httpCatUrl}" class="${style}" alt="imagem do gatinho :3">`;
 
   imageElement.innerHTML = cat;
   cardIdElement.innerText = "Não foi possivel achar seu gatinho :(";
