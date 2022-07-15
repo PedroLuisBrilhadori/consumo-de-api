@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { getCat } from "../cats";
+import { getCat } from "../http";
 
 export default {
   data() {
