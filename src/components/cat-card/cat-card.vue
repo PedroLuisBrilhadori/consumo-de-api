@@ -25,14 +25,18 @@
 import { getCat } from "./cat.service";
 
 export default {
+  emits: ["loaded"],
   data() {
     return {
       cardState: { id: "", url: "" },
+      loading: false,
     };
   },
 
   methods: {
     async setCard() {
+      this.loading = true;
+
       const response = await getCat();
 
       if (!response.success) {
@@ -40,7 +44,23 @@ export default {
       }
 
       const data = response.data;
+
+      await this._loadImage(data.url);
+      this.loading = false;
+      this.$emit("loaded");
+
       this._setCardState(data.id, data.url);
+    },
+
+    _loadImage(url) {
+      return new Promise((resolve, reject) => {
+        let img = new Image();
+        img.addEventListener("load", (e) => resolve(img));
+        img.addEventListener("error", () => {
+          reject(new Error(`Failed to load image's URL: ${url}`));
+        });
+        img.src = url;
+      });
     },
 
     _setCardState(id, url) {
