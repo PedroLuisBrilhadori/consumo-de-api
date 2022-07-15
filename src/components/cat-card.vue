@@ -48,10 +48,6 @@ export default {
       this.cardState.id = id;
       this.cardState.url = url;
     },
-
-    getCardState() {
-      return this.cardState;
-    },
   },
 
   mounted() {
