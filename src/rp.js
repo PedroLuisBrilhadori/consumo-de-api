@@ -1,7 +1,6 @@
 import "./style.css";
 import javascriptLogo from "./assets/javascript.svg";
 import RPjsLogo from "./assets/logo.svg";
-import loadingGIF from "./assets/loading.gif";
 import { setCat } from "./cats";
 
 const header = `

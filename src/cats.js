@@ -7,6 +7,11 @@ import Cat404 from "./assets/404.jpg";
 export async function getCat() {
   try {
     const response = await fetch(url);
+
+    if (response.status !== 200) {
+      return { success: false, status: response.status };
+    }
+
     const json = await response.json();
 
     return { success: true, data: json[0] };
@@ -19,26 +24,29 @@ export async function getCat() {
  * @param element um elemento HTML (no caso do exemplo, uma div);
  */
 export async function setCat(imageElement) {
+  // elementos que serão usados para adicionar os dados no cat-card
   const cardElement = document.getElementById("cat-card");
   const cardUrlElement = document.getElementById("card-url");
   const cardIdElement = document.getElementById("card-id");
 
-  // const response = await getCat();
+  const response = await getCat();
 
-  if (!response.success) {
-    let cat = `<img id="cat-photo" loading="lazy" src="${Cat404}" class="object-cover w-full h-96" alt="imagem do gatinho :3">`;
+  if (response.success) {
+    const data = response?.data;
+    let cat = `<img id="cat-photo" loading="lazy" src="${data.url}" class="object-cover w-full h-96" alt="imagem do gatinho :3">`;
+
     imageElement.innerHTML = cat;
-    cardIdElement.innerText = "Não foi possivel achar seu gatinho :(";
-    cardUrlElement.innerText = "https://http.cat/404";
-    cardElement.href = "https://http.cat/404";
+    cardIdElement.innerText = data.id;
+    cardUrlElement.innerText = data.url;
+    cardElement.href = data.url;
+
     return;
   }
 
-  const data = response?.data;
+  let cat = `<img id="cat-photo" loading="lazy" src="${Cat404}" class="object-cover w-full h-96" alt="imagem do gatinho :3">`;
 
-  let cat = `<img id="cat-photo" loading="lazy" src="${data?.url}" class="object-cover w-full h-96" alt="imagem do gatinho :3">`;
   imageElement.innerHTML = cat;
-  cardIdElement.innerText = data.id;
-  cardUrlElement.innerText = data.url;
-  cardElement.href = data.url;
+  cardIdElement.innerText = "Não foi possivel achar seu gatinho :(";
+  cardUrlElement.innerText = "https://http.cat/404";
+  cardElement.href = "https://http.cat/404";
 }
