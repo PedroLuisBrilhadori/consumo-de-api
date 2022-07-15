@@ -1,7 +1,13 @@
 <template>
-  <CatApi></CatApi>
+  <Nav title="Consumo de APIs"></Nav>
+
+  <RouterView></RouterView>
 </template>
 
-<script setup>
-import CatApi from "./components/cat-api/cat-api.vue";
+<script>
+import Nav from "./components/nav/nav.vue";
+
+export default {
+  components: { Nav },
+};
 </script>
