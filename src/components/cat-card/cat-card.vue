@@ -29,14 +29,11 @@ export default {
   data() {
     return {
       cardState: { id: "", url: "" },
-      loading: false,
     };
   },
 
   methods: {
     async setCard() {
-      this.loading = true;
-
       const response = await getCat();
 
       if (!response.success) {
@@ -46,7 +43,6 @@ export default {
       const data = response.data;
 
       await this._loadImage(data.url);
-      this.loading = false;
       this.$emit("loaded");
 
       this._setCardState(data.id, data.url);

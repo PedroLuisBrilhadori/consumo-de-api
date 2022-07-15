@@ -14,6 +14,8 @@
 <script>
 import Loading from "../loading/loading.vue";
 export default {
+  components: { Loading },
+
   emits: ["onclick"],
 
   props: {
@@ -26,7 +28,5 @@ export default {
       this.$emit("onclick");
     },
   },
-
-  components: { Loading },
 };
 </script>
