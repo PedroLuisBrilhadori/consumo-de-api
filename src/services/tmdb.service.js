@@ -27,9 +27,9 @@ export async function getMovieInfo(id) {
   }
 }
 
-export async function searchMovies(query) {
+export async function searchMovies(query, page) {
   try {
-    const url = `${baseUrl}/search/movie?api_key=${apiKey}&language=pt-BR&query=${query}`;
+    const url = `${baseUrl}/search/movie?api_key=${apiKey}&page=${page}&language=pt-BR&query=${query}`;
     const response = await fetch(url);
 
     const json = await response.json();

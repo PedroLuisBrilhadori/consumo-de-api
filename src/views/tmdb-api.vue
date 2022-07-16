@@ -75,7 +75,10 @@ export default {
       this.loading = true;
       this.resetState();
 
-      const { success, data } = await searchMovies(this.valueSearch);
+      const { success, data } = await searchMovies(
+        this.valueSearch,
+        this.pagination.page
+      );
 
       if (!success) return;
 
@@ -96,13 +99,13 @@ export default {
       if (this.pagination.page < this.pagination.total) ++this.pagination.page;
 
       this.resetState();
-      this.getMovies();
+      this.valueSearch.length ? this.search() : this.getMovies();
     },
 
     previousPage() {
       if (this.pagination.page > 1) --this.pagination.page;
       this.resetState();
-      this.getMovies();
+      this.valueSearch.length ? this.search() : this.getMovies();
     },
 
     resetState() {
