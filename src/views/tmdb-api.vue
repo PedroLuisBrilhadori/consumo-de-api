@@ -4,17 +4,24 @@
     v-on:keyup="keyup"
     v-on:search="search()"
   />
-
-  <div class="flex flex-wrap items-start justify-center">
-    <div v-for="movie in this.movies" v-bind:key="movie.id">
-      <Card
-        :title="movie.title"
-        :description="movie.overview"
-        :srcImage="`https://image.tmdb.org/t/p/original${movie.poster_path}`"
-        :url="`/tmdb/movie/${movie.id}`"
-        class="max-w-xs"
-      ></Card>
+  <div class="flex flex-col items-center">
+    <div class="flex flex-wrap items-start justify-center">
+      <div v-for="movie in this.movies" v-bind:key="movie.id">
+        <Card
+          :title="movie.title"
+          :description="movie.overview"
+          :srcImage="`https://image.tmdb.org/t/p/original${movie.poster_path}`"
+          :url="`/tmdb/movie/${movie.id}`"
+          class="max-w-xs"
+        ></Card>
+      </div>
     </div>
+    <Paginator
+      :page="pagination.page"
+      :totalPages="pagination.total"
+      v-on:next="nextPage()"
+      v-on:previous="previousPage()"
+    />
   </div>
 </template>
 
@@ -22,8 +29,9 @@
 import Search from "../components/search/search.vue";
 import { SearchMovies, getPopularMovies } from "../services";
 import Card from "../components/card/card.vue";
+import Paginator from "../components/paginator/paginator.vue";
 export default {
-  components: { Search, Card },
+  components: { Search, Card, Paginator },
 
   mounted() {
     this.getMovies();
@@ -33,7 +41,10 @@ export default {
     return {
       valueSearch: "",
       movies: [],
-      page: 1,
+      pagination: {
+        page: 1,
+        total: 0,
+      },
       loading: false,
     };
   },
@@ -42,7 +53,7 @@ export default {
     async getMovies() {
       this.loading = true;
 
-      const { success, data } = await getPopularMovies(this.page);
+      const { success, data } = await getPopularMovies(this.pagination.page);
 
       if (!success) return;
 
@@ -50,7 +61,27 @@ export default {
         this.movies.push(movie);
       });
 
+      this.pagination.page = data.page;
+      this.pagination.total = data.total_pages;
+
       this.loading = false;
+    },
+
+    nextPage() {
+      if (this.pagination.page < this.pagination.total) ++this.pagination.page;
+
+      this.resetState();
+      this.getMovies();
+    },
+
+    previousPage() {
+      if (this.pagination.page > 1) --this.pagination.page;
+      this.resetState();
+      this.getMovies();
+    },
+
+    resetState() {
+      this.movies = [];
     },
 
     search() {
