@@ -12,7 +12,7 @@
         >
           <img
             class="p-6 h-24 will-change-filter hover:drop-shadow-[0_0_1em_#f7df1eaa]"
-            src="assets/logo.svg"
+            src="/assets/logo.svg"
             alt="RP.js"
           />
         </a>

@@ -1,8 +1,10 @@
 <template>
   <Card
     v-bind:url="card.url"
+    v-bind:srcImage="card.url"
     v-bind:title="card.title"
     v-bind:description="card.description"
+    alt="Imagem do gatinho :3"
   />
 
   <div class="flex flex-col items-center">
