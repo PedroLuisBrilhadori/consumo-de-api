@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-5">
+  <div class="mx-10">
     <label
       for="default-search"
       class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
