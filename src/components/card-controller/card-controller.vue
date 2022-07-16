@@ -1,5 +1,9 @@
 <template>
-  <CatCard v-on:loaded="resetState()" ref="CatCards"></CatCard>
+  <Card
+    v-bind:url="card.url"
+    v-bind:title="card.title"
+    v-bind:description="card.description"
+  />
 
   <div class="flex flex-col items-center">
     <ButtonComponent
@@ -26,28 +30,48 @@
 </template>
 
 <script>
-import CatCard from "../cat-card/cat-card.vue";
+import Card from "../card/card.vue";
 import ButtonComponent from "../button/button-component.vue";
-import { setVote } from "../../services";
+import { setVote, getCat, loadImage } from "../../services";
 
 export default {
-  components: { CatCard, ButtonComponent },
+  components: { ButtonComponent, Card },
+
+  mounted() {
+    this.changeCard();
+  },
 
   data() {
     return {
       imageLoading: false,
       voteLoading: [false, false],
       voted: [false, false],
+      card: {
+        title: "",
+        description: "",
+        url: "",
+      },
     };
   },
 
   methods: {
-    changeCard() {
+    async changeCard() {
       this.imageLoading = true;
-      if (!this.$refs.CatCards.loading) {
-        this.$refs.CatCards.setCard();
-      }
+
+      const { success, data } = await getCat();
+
+      if (!success) return;
+
+      this.card.url = data.url;
+
+      await loadImage(data.url);
+      this.resetState();
+
+      this.card.title = data.id;
+      this.card.description = data.url;
+      this.card.url = data.url;
     },
+
     async vote(value) {
       if (this.voted[value]) {
         return;
@@ -55,13 +79,13 @@ export default {
 
       this.voteLoading[value] = true;
 
-      const imageId = this.$refs.CatCards.cardState.id;
-      const response = await setVote({ id: imageId, value: value });
+      const response = await setVote({ id: this.card.title, value: value });
 
       if (response.success) this.voted[value] = true;
 
       this.voteLoading[value] = false;
     },
+
     resetState() {
       this.imageLoading = false;
       this.voteLoading = [false, false];
