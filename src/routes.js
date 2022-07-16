@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
 import CatApi from "./views/cat-api.vue";
-import Home from "./views/home.vue";
+import TmdbApi from "./views/tmdb-api.vue";
 
 const routes = [
-  { path: "/", name: "Home", component: Home },
+  { path: "/", name: "Home", component: CatApi },
   { path: "/cat", name: "TheCatAPI", component: CatApi },
+  { path: "/tmdb", name: "TMDBAPI", component: TmdbApi },
 ];
 
 const router = createRouter({

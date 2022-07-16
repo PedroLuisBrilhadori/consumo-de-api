@@ -28,7 +28,7 @@
 <script>
 import CatCard from "../cat-card/cat-card.vue";
 import ButtonComponent from "../button/button-component.vue";
-import { setVote } from "../cat-card/cat.service";
+import { setVote } from "../../services";
 
 export default {
   components: { CatCard, ButtonComponent },

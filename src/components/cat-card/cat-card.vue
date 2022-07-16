@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { getCat } from "./cat.service";
+import { getCat } from "../../services";
 
 export default {
   emits: ["loaded"],

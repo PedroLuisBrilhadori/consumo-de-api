@@ -28,11 +28,8 @@
             </li>
 
             <li>
-              <a
-                class="text-white transition hover:text-white/75"
-                href="/google"
-              >
-                GoogleCloud
+              <a class="text-white transition hover:text-white/75" href="/tmdb">
+                TMDB
               </a>
             </li>
           </ul>
