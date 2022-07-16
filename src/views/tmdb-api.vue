@@ -27,7 +27,7 @@
 
 <script>
 import Search from "../components/search/search.vue";
-import { SearchMovies, getPopularMovies } from "../services";
+import { searchMovies, getPopularMovies } from "../services";
 import Card from "../components/card/card.vue";
 import Paginator from "../components/paginator/paginator.vue";
 export default {
@@ -57,14 +57,39 @@ export default {
 
       if (!success) return;
 
-      data.results.forEach((movie) => {
-        this.movies.push(movie);
-      });
+      this.setMovies(data.results);
 
       this.pagination.page = data.page;
       this.pagination.total = data.total_pages;
 
       this.loading = false;
+    },
+
+    async search() {
+      if (this.valueSearch === "") {
+        this.resetState();
+        this.getMovies();
+        return;
+      }
+
+      this.loading = true;
+      this.resetState();
+
+      const { success, data } = await searchMovies(this.valueSearch);
+
+      if (!success) return;
+
+      this.setMovies(data.results);
+
+      this.pagination.page = data.page;
+      this.pagination.total = data.total_pages;
+      this.loading = false;
+    },
+
+    setMovies(movies) {
+      movies.forEach((movie) => {
+        this.movies.push(movie);
+      });
     },
 
     nextPage() {
@@ -84,9 +109,6 @@ export default {
       this.movies = [];
     },
 
-    search() {
-      SearchMovies(this.valueSearch);
-    },
     keyup(valueSearch) {
       this.valueSearch = valueSearch;
     },
