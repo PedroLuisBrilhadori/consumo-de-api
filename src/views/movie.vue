@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex justify-center w-full bg-gradient-to-r from-orange-500 to-pink-500"
+    class="flex justify-center w-full bg-gradient-to-r from-orange-500 to-pink-500 px-10"
   >
     <img
       v-bind:src="movie.url"
@@ -10,13 +10,17 @@
 
     <div class="ml-10 p-5 flex flex-col">
       <div>
-        <div class="flex flex-wrap">
-          <h1 class="text-4xl">
-            {{ movie.title }}
-          </h1>
-          <p class="text-4xl text-white opacity-80">
-            ({{ movie.release_date[0] }})
-          </p>
+        <div class="flex justify-between">
+          <div class="flex flex-wrap">
+            <h1 class="text-4xl">{{ movie.title }}</h1>
+            <p class="text-4xl text-white opacity-80">
+              ({{ movie.release_date[0] }})
+            </p>
+          </div>
+
+          <a href="/tmdb">
+            <span class="material-symbols-outlined"> arrow_back </span>
+          </a>
         </div>
 
         <div class="flex flex-wrap">
