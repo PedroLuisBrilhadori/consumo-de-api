@@ -4,6 +4,7 @@
     v-on:keyup="keyup"
     v-on:search="search()"
   />
+
   <div class="flex flex-col items-center">
     <div class="flex flex-wrap items-start justify-center">
       <div v-for="movie in this.movies" v-bind:key="movie.id">
@@ -45,14 +46,11 @@ export default {
         page: 1,
         total: 0,
       },
-      loading: false,
     };
   },
 
   methods: {
     async getMovies() {
-      this.loading = true;
-
       const { success, data } = await getPopularMovies(this.pagination.page);
 
       if (!success) return;
@@ -61,8 +59,6 @@ export default {
 
       this.pagination.page = data.page;
       this.pagination.total = data.total_pages;
-
-      this.loading = false;
     },
 
     async search() {
@@ -72,9 +68,6 @@ export default {
         return;
       }
 
-      this.loading = true;
-      this.resetState();
-
       const { success, data } = await searchMovies(
         this.valueSearch,
         this.pagination.page
@@ -82,11 +75,11 @@ export default {
 
       if (!success) return;
 
+      this.resetState();
       this.setMovies(data.results);
 
       this.pagination.page = data.page;
       this.pagination.total = data.total_pages;
-      this.loading = false;
     },
 
     setMovies(movies) {
@@ -98,27 +91,26 @@ export default {
     nextPage() {
       if (this.pagination.page < this.pagination.total) ++this.pagination.page;
 
-      this.resetState();
+      this.movies = [];
       this.valueSearch.length ? this.search() : this.getMovies();
     },
 
     previousPage() {
       if (this.pagination.page > 1) --this.pagination.page;
-      this.resetState();
+      this.movies = [];
       this.valueSearch.length ? this.search() : this.getMovies();
     },
 
     resetState() {
       this.movies = [];
-
-      if (this.valueSearch !== "")
-        this.pagination = {
-          page: 1,
-          total: 0,
-        };
+      this.pagination = {
+        page: 1,
+        total: 0,
+      };
     },
 
     keyup(valueSearch) {
+      console.log("keyUP:", valueSearch);
       this.valueSearch = valueSearch;
     },
   },
