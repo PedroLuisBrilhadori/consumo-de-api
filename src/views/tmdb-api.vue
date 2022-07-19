@@ -110,6 +110,12 @@ export default {
 
     resetState() {
       this.movies = [];
+
+      if (this.valueSearch !== "")
+        this.pagination = {
+          page: 1,
+          total: 0,
+        };
     },
 
     keyup(valueSearch) {
