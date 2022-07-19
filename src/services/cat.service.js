@@ -3,9 +3,7 @@ const headers = new Headers();
 headers.append("X-API-KEY", import.meta.env.API_KEY);
 headers.append("Content-Type", "application/json");
 
-/**
- * Função que realiza a requisição http para a API
- */
+// https://docs.thecatapi.com/api-reference/images/images-search
 export async function getCat() {
   try {
     const response = await fetch(`${baseUrl}/images/search`);
@@ -22,6 +20,7 @@ export async function getCat() {
   }
 }
 
+// https://docs.thecatapi.com/api-reference/votes/votes-post
 export async function setVote(vote) {
   try {
     const body = `{
