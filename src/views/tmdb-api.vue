@@ -3,6 +3,7 @@
     :valueSearch="valueSearch"
     v-on:keyup="keyup"
     v-on:search="search()"
+    v-on:home="getMovies()"
   />
 
   <div class="flex flex-col items-center">
@@ -55,6 +56,8 @@ export default {
 
       if (!success) return;
 
+      this.resetState();
+      this.valueSearch = "";
       this.setMovies(data.results);
 
       this.pagination.page = data.page;
@@ -62,12 +65,6 @@ export default {
     },
 
     async search() {
-      if (this.valueSearch === "") {
-        this.resetState();
-        this.getMovies();
-        return;
-      }
-
       const { success, data } = await searchMovies(
         this.valueSearch,
         this.pagination.page
